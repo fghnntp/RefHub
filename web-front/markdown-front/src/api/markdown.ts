@@ -23,3 +23,11 @@ export async function saveFile(filename: string, content: string): Promise<void>
 export async function deleteFile(filename: string): Promise<void> {
   await axios.delete(`${BASE_URL}/${encodeURIComponent(filename)}`)
 }
+
+export async function getPdfUrl(filename: string): Promise<string> {
+  console.log('getPdfUrl called with:', filename)
+  const res = await axios.get(`${BASE_URL}/${encodeURIComponent(filename)}`, {
+    responseType: 'blob'
+  })
+  return URL.createObjectURL(res.data)
+}

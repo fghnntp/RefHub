@@ -1,17 +1,36 @@
 <template>
   <div class="container">
     <FastIndexPanel class="left-panel" />
-    <MarkdownPreviewer class="center-panel" />
+    <div class="center-panel">
+      <MarkdownPreviewer v-if="fileType === 'md'" />
+      <PdfPreviewer v-else-if="fileType === 'pdf'" :file="selectedFileObj" />
+      <div v-else class="unsupported-type">暂不支持该文件类型</div>
+    </div>
     <MetaReferenceGraph class="right-panel" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useMarkdownStore } from './store'
 import MarkdownPreviewer from './components/MarkdownPreviewer.vue'
+import PdfPreviewer from './components/PdfPreviewer.vue'
 import FastIndexPanel from './components/FastIndexPanel.vue'
 import MetaReferenceGraph from './components/MetaReferenceGraph.vue'
 
+const store = useMarkdownStore()
+const selectedFile = computed(() => store.selectedFile)
+const fileType = computed(() => {
+  if (store.selectedFile?.ext === 'pdf') return 'pdf'
+  if (store.selectedFile?.ext === 'md') return 'md'
+  return 'md'
+})
+const selectedFileObj = computed(() => ({
+  name: selectedFile.value.name,
+  ext: fileType.value
+}))
 </script>
+
 
 <style scoped>
 .container {

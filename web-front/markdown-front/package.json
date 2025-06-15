@@ -11,6 +11,7 @@
     "axios": "^1.10.0",
     "element-plus": "^2.6.3",
     "markdown-it": "^14.1.0",
+    "pdfjs-dist": "^5.3.31",
     "pinia": "^2.1.7",
     "vis-network": "^9.1.12",
     "vue": "^3.4.0"

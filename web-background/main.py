@@ -30,8 +30,13 @@ def list_files():
 @app.get("/api/files/{filename}")
 def get_file(filename: str):
     content = file_manager.get_file(filename)
-    if content is None:
-        raise HTTPException(status_code=404, detail="File not found")
+    # if content is None:
+    #     raise HTTPException(status_code=404, detail="File not found")
+
+    # 判断是否是pdf
+    if filename.lower().endswith('.pdf'):
+        return content
+    # 否则按文本返回
     return {"content": content}
 
 @app.put("/api/files/{filename}")

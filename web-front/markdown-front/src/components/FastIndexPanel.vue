@@ -89,9 +89,13 @@ async function loadFiles() {
 }
 
 async function onNodeClick(node: { label: string }) {
-  selectedFile.value = node.label
-  const content = await getFile(node.label)
-  store.setContent(content)
+  
+  if (node.label.endsWith('.md')) {
+    const content = await getFile(node.label)
+    store.setContent(content)
+  }
+  console.log('File clicked:', node.label)
+  store.setSelectedFile(node.label)
 }
 
 function focusInput() {
