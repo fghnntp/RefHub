@@ -15,3 +15,25 @@ export const useMarkdownStore = defineStore('markdownStore', () => {
     setContent,
   }
 })
+
+export const useRealMarkdownStore = defineStore('realMarkdownStore', () => {
+  // 当前选中的文档内容
+  const content = ref<string>('# 这是 RealMarkdownStore 的初始内容\n\n这里可以保存另一份 Markdown 文本。')
+
+  // 切换文档时调用
+  function setContent(newContent: string) {
+    console.log('RealMarkdownStore setContent called with:', newContent)
+    content.value = newContent
+  }
+
+  // 实时编辑时调用
+  function updateContent(newContent: string) {
+    content.value = newContent
+  }
+
+  return {
+    content,
+    setContent,
+    updateContent,
+  }
+})

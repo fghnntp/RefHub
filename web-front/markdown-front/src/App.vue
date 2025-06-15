@@ -10,28 +10,12 @@
 import FastIndexPanel from './components/FastIndexPanel.vue'
 import MarkdownPreviewer from './components/MarkdownPreviewer.vue'
 import MetaReferenceGraph from './components/MetaReferenceGraph.vue'
+
+import { useMarkdownStore } from './store'
+const store = useMarkdownStore()
 </script>
 
 <style scoped>
-/* .container {
-  display: flex;
-  height: 100vh;
-}
-.left-panel {
-  width: 280px;
-  border-right: 1px solid #eee;
-  background: #fafbfc;
-  min-width: 220px;
-  max-width: 350px;
-  overflow: auto;
-}
-.center-panel {
-  flex: 1;
-  background: #fff;
-  overflow: auto;
-  min-width: 300px;
-} */
-
 .container {
   display: flex;
   height: 100vh;
@@ -63,9 +47,9 @@ import MetaReferenceGraph from './components/MetaReferenceGraph.vue'
 }
 
 .right-panel {
-  width: 320px;
-  min-width: 220px;
-  max-width: 400px;
+  width: 440px;
+  min-width: 340px;
+  max-width: 540px;
 }
 
 .left-panel:hover, .center-panel:hover, .right-panel:hover {
@@ -84,6 +68,30 @@ import MetaReferenceGraph from './components/MetaReferenceGraph.vue'
 .right-panel::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 4px;
+}
+
+/* 右侧大图预览 */
+.meta-graph-hover-preview img {
+  max-width: 340px;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px #0003;
+  background: #f8f8f8;
+  padding: 4px;
+}
+.meta-graph-hover-preview {
+  position: absolute;
+  left: 28px;
+  top: 28px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px #0002;
+  padding: 16px;
+  z-index: 10;
+  min-width: 180px;
+  min-height: 80px;
+  max-width: 380px;
 }
 
 </style>

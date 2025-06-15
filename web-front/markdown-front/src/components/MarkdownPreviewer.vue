@@ -6,24 +6,36 @@
 
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
-import { useMarkdownStore } from '../store'
+import { useMarkdownStore, useRealMarkdownStore } from '../store'
 
 // @ts-ignore
 declare const Vditor: any
 
 const store = useMarkdownStore()
+const realStore = useRealMarkdownStore()
+
 let vditorPreview: any = null
 
 onMounted(() => {
   vditorPreview = new Vditor('vditor-preview', {
     height: window.innerHeight - 36,
-    mode: 'sv',
+    mode: 'ir',
     toolbar: [],
     cache: { enable: false },
     value: store.content,
     after: () => {},
     preview: { mode: 'both' },
-    input: (val: string) => { /* 禁止编辑 */ }
+    outline: { enable: true, position: 'left' },
+    counter: { enable: true},
+    hint: {
+      emoji: true,
+      math: true,
+      mark: true,
+      linkBase: '',
+      footnotes: true,
+      toc: true
+    },
+    input: (val: string) => {  realStore.setContent(val) },
   })
 })
 
@@ -36,14 +48,6 @@ watch(
   }
 )
 </script>
-
-<!-- <style scoped>
-.markdown-previewer {
-  padding: 24px;
-  height: 100%;
-  box-sizing: border-box;
-}
-</style> -->
 
 <style scoped>
 .markdown-previewer-container {

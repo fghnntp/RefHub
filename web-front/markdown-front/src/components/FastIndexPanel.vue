@@ -32,7 +32,7 @@ import { useMarkdownStore } from '../store'
 const activeTab = ref('catalog')
 
 const treeData = [
-  { label: 'README.md', content: '# README\n\n这是项目简介内容。' },
+  { label: 'README.md', content: '# README\n\n这是项目简介内容。![Logo](https://img.shields.io/badge/Markdown-Editor-blue)' },
   { label: '快速开始.md', content: '# 快速开始\n\n本节介绍如何快速上手。' },
   { label: '使用文档.md', content: '# 使用文档\n\n详细的使用说明。' }
 ]
