@@ -7,12 +7,10 @@
 </template>
 
 <script setup lang="ts">
-import FastIndexPanel from './components/FastIndexPanel.vue'
 import MarkdownPreviewer from './components/MarkdownPreviewer.vue'
+import FastIndexPanel from './components/FastIndexPanel.vue'
 import MetaReferenceGraph from './components/MetaReferenceGraph.vue'
 
-import { useMarkdownStore } from './store'
-const store = useMarkdownStore()
 </script>
 
 <style scoped>
