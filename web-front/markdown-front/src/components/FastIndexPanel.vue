@@ -27,6 +27,7 @@
                 <el-dropdown-menu>
                   <el-dropdown-item command="rename">重命名</el-dropdown-item>
                   <el-dropdown-item command="delete">删除</el-dropdown-item>
+                  <el-dropdown-item command="save">保存</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -62,11 +63,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { More } from '@element-plus/icons-vue'
 import { getFiles, getFile, saveFile, deleteFile } from '../api/markdown'
-import { useMarkdownStore } from '../store'
+import { useMarkdownStore, useRealMarkdownStore} from '../store'
 
 const fileTree = ref<{ label: string }[]>([])
 const treeProps = { children: 'children', label: 'label' }
@@ -81,6 +82,7 @@ const renameFileName = ref('')
 const renameTarget = ref<string>('')
 
 const store = useMarkdownStore()
+const realStore = useRealMarkdownStore()
 
 async function loadFiles() {
   fileTree.value = (await getFiles()).map(f => ({ label: f }))
@@ -136,6 +138,9 @@ function handleFileCommand(command: string, file: { label: string }) {
     showRenameDialog.value = true
   } else if (command === 'delete') {
     removeFile(file)
+  } else if (command === 'save') {
+    // 这里可以添加保存逻辑
+    saveFile(file.label, realStore.content)
   }
 }
 
@@ -178,6 +183,10 @@ onMounted(async () => {
     selectedFile.value = ''
     store.setContent('')
   }
+})
+
+watch(() => realStore.content, (newContent) => {
+    saveFile(selectedFile.value, newContent)
 })
 
 
